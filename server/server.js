@@ -23,7 +23,17 @@ app.get('/',(req, res)=>{
     res.send("Api is working")
 })
 
-app.listen(PORT,async()=>{
+const startServer = async () => {
+  try {
     await connectDb();
-    console.log("server is running on port", PORT)
-})
+
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (err) {
+    console.log("Failed to connect to MongoDB");
+    console.error(err);
+  }
+};
+
+startServer();
